@@ -1,28 +1,102 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress Bar</title>
+<style>
+  .progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 10px;
+  }
+  .active {
+    background-color: dodgerblue;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 4px;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+</style>
 </head>
-
 <body>
-<div class="circles">
-	<div id="circle-1" class="circle">1</div>
-	<div id="circle-1" class="circle">2</div>
-	<div id="circle-1" class="circle">3</div>
-	<div id="circle-1" class="circle">4</div>
-	<div id="circle-1" class="circle">5</div>
-	</div>
-	<!-- <div class="btn"> -->
-	<button id="prev">Previous</button>
-	<button id="next">Next</button>
-		<!-- </div> -->
-	
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<div class="progress-bar">
+  <div class="circle active"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
+<div style="text-align: center;">
+  <button id="prev" disabled>Previous</button>
+  <button id="next">Next</button>
+</div>
+
+<script>
+  const circles = document.querySelectorAll('.circle');
+  const prevButton = document.getElementById('prev');
+  const nextButton = document.getElementById('next');
+  let currentActive = 0;
+
+  function updateButtons() {
+    if (currentActive === 0) {
+      prevButton.disabled = true;
+    } else {
+      prevButton.disabled = false;
+    }
+
+    if (currentActive === circles.length - 1) {
+      nextButton.disabled = true;
+    } else {
+      nextButton.disabled = false;
+    }
+  }
+
+  nextButton.addEventListener('click', () => {
+    currentActive++;
+    updateProgress();
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentActive--;
+    updateProgress();
+  });
+
+  function updateProgress() {
+    circles.forEach((circle, idx) => {
+      if (idx <= currentActive) {
+        circle.classList.add('active');
+      } else {
+        circle.classList.remove('active');
+      }
+    });
+
+    updateButtons();
+  }
+
+  updateProgress();
 </script>
 
 </body>
-
 </html>
