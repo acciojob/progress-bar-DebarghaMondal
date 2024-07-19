@@ -1,4 +1,4 @@
-/* .circles{
+.circles{
 	display:flex;
 	gap:25px;
 	justify-content:center;
@@ -27,4 +27,7 @@ button{
 	border-radius:3px;
 	
 }
- */
+.circle.active {
+    background-color: #3FA2F6;
+    color: white;
+}
